@@ -2,9 +2,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AddMovie from './AddMovie';
-
-
+import Add from './Add'
 
 
 
@@ -19,12 +17,15 @@ class AddModal extends React.Component {
     handleShow = () => {
         this.setState ({ show : !this.state.show}) ;
     };
-    handleChange =(event) => {
-        this.setState({
-            [event.target.name] : event.target.value 
-            
-        })
-    }
+    handleChange = (event) => {
+    this.setState({
+      ...this.state,
+      newMovie: {
+        ...this.state.newMovie,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
     
     render () {
         return ( 
@@ -62,7 +63,7 @@ class AddModal extends React.Component {
                         </div>
                         </div>
         </Modal.Body>
-       <Button onClick={AddMovie}>
+       <Button onClick={Add()} >
            Submit
        </Button>
         </Modal>

@@ -1,5 +1,7 @@
 .App {
   background-color: rgb(17, 17, 17);
+  display: flex;
+  flex-wrap: wrap;
 }
 .search {
   color: rgb(75, 108, 136);

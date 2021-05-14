@@ -3,17 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import './App.css';
 import {v4 as uuidv4} from "uuid"
-import ListMovies from "./components/ListMovies"
+import Card from "./components/Card"
 import AddModal from './components/AddModal';
+import Form from 'react-bootstrap/Form'
+import  Navbar  from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav'
+
+import useState from "react";
 
 
-
-
-
-
-class App extends React.Component {
-  state = {
-    movies : [{
+function App () {
+  const  movies = [{
       id : uuidv4(),
       title : "the invisible guest",
       description : "The Invisible Guest (Spanish: Contratiempo, lit. 'Setback') is a Spanish mystery thriller film written and directed by Oriol Paulo. It was released in Spain on 6 January 2017. The film opened to lukewarm critical response, but was a commercial success, grossing $30.5 million against its €4 million budget.",
@@ -44,24 +44,35 @@ class App extends React.Component {
       posterUrl : "https://th.bing.com/th/id/OIP.bRMEBwz-3oMpbc6P-GiOZQHaLH?pid=ImgDet&rs=1",
       rating : 4 ,
       year : "2020"
-    }
-  ]
-  }
+    },
+  ];
 
-  render () {
+  const [movieList, setMovieList] = useState(movies);
+  const [search, setSearch] = useState("");
+  const movieAdd = (title, posterUrl,description, rating, year) =>
+    setMovieList([...movieList, { title, posterUrl,description, rating, year }]);
 
     return (
     <div className="App">
+       <Navbar bg="light" variant="light">
+        <Navbar.Brand href="#home">CyriX</Navbar.Brand>
+        <Nav className="mr-auto"></Nav> 
+        </Navbar>
       <header className="App-header">
         <h1> <span>Saturday Nights </span> Movies </h1>
-
       </header>
-      <ListMovies movies={this.state.movies}/> 
-      <AddModal />
+     <Form.Control
+            onChange={(search) => setSearch(search.target.value)}
+            type="text"
+            placeholder="Search"
+            className="search"
+          />
+      <Card movies={movieList}/> 
+      <AddModal movieAdd={movieAdd}  />
     </div>
   );
-}
-}
+    }
+
 
 export default App;
 
